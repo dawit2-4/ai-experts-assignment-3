@@ -1,64 +1,125 @@
-# AI Experts Assignment (Python)
+Here is your content properly formatted as a **`README.md` Markdown file**.
 
-This assignment evaluates your ability to:
+You can copy this directly into **README.md**.
 
-- set up a small Python project to run reliably (locally + in Docker),
-- pin dependencies for reproducible installs,
-- write focused tests to reproduce a bug,
-- implement a minimal, reviewable fix.
+```markdown
+# OAuth2 Client Assignment
 
-## What you will do
+## Project Structure
+```
 
-### 1) Dockerfile (required)
+.
+├── app/
+│ ├── http_client.py
+│ └── tokens.py
+│
+├── tests/
+│ └── test_http_client.py
+│
+├── Dockerfile
+├── requirements.txt
+├── README.md
+├── Explanation.md
+└── .gitignore
 
-Create a `Dockerfile` so the project can run the test suite in a non-interactive, CI-style environment.
+````
 
-Requirements:
+## Description
 
-- requirements.txt exists and is used during build (pip install -r requirements.txt)
-- pytest must be included/pinned in requirements.txt
-- The image must run tests by default (use: `CMD ["python", "-m", "pytest", "-v"]`).
-- The build must install dependencies from `requirements.txt`.
+### app/
 
-### 2) requirements.txt (required)
+Contains the application logic.
 
-Create a `requirements.txt` with pinned versions, using this format:
+- **tokens.py** – Handles OAuth2 token representation and parsing.
+- **http_client.py** – Implements a simple HTTP client that attaches OAuth2 authentication headers.
 
-- `package==x.y.z`
+### tests/
 
-### 3) README updates (required)
+Contains the **pytest test suite** that validates the behavior of the client and token handling.
 
-Update this README to include:
+---
 
-- how to run the tests locally,
-- how to build and run tests with Docker.
+# Running Tests Locally
 
-### 4) Find + fix a bug (required)
+### 1. Clone the repository
 
-There is a bug somewhere in this repository.
+```bash
+git clone <your-repo-url>
+cd <repo-name>
+````
 
-Your tasks:
+### 2. Create a virtual environment (optional but recommended)
 
-- Identify the bug.
-- Apply the smallest possible fix to make the tests pass.
-- Keep the change minimal and reviewable (no refactors).
+```bash
+python -m venv venv
+source venv/bin/activate
+```
 
-## Constraints
+For **Windows**:
 
-- Keep changes minimal and reviewable.
-- Do not refactor unrelated code.
-- Do not introduce extra tooling unless required.
-- You may add tests and the smallest code change needed to fix the bug.
+```bash
+venv\Scripts\activate
+```
 
-### 5) EXPLANATION.md (required)
+### 3. Install dependencies
 
-Create `EXPLANATION.md` (max 250 words) containing:
+```bash
+pip install -r requirements.txt
+```
 
-- **What was the bug?**
-- **Why did it happen?**
-- **Why does your fix solve it?**
-- **One realistic case / edge case your tests still don’t cover**
+### 4. Run the test suite
 
-## Submission
+```bash
+pytest -v
+```
 
-- Submit a public GitHub repository URL containing your solution to the Google form link provided.
+### Expected Output
+
+```
+================= test session starts =================
+
+tests/test_http_client.py::test_client_uses_requests_session PASSED
+tests/test_http_client.py::test_token_from_iso_uses_dateutil PASSED
+tests/test_http_client.py::test_api_request_sets_auth_header_when_token_is_valid PASSED
+tests/test_http_client.py::test_api_request_refreshes_when_token_is_missing PASSED
+tests/test_http_client.py::test_api_request_refreshes_when_token_is_dict PASSED
+
+================= 5 passed =================
+```
+
+---
+
+# Running Tests with Docker
+
+The repository includes a **Dockerfile** to ensure the tests run in a clean environment similar to CI.
+
+### 1. Build the Docker image
+
+```bash
+docker build -t oauth2-client-assignment .
+```
+
+### 2. Run the tests inside the container
+
+```bash
+docker run oauth2-client-assignment
+```
+
+Docker will automatically execute:
+
+```bash
+pytest -v
+```
+
+---
+
+# Assignment Tasks Completed
+
+This repository includes the following required components:
+
+- Dockerfile for containerized test execution
+- Pinned dependencies in `requirements.txt`
+- Tests that reproduce the identified bug
+- A minimal fix applied to the codebase
+- `Explanation.md` describing the bug, root cause, and fix
+- Instructions for running the project locally and with Docker
